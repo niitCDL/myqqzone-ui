@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ注册</title>
+    <!-- Import style -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css"/>
+    <!-- Import Vue 3 -->
+    <script src="//unpkg.com/vue@3"></script>
+    <!-- Import component library -->
+    <script src="//unpkg.com/element-plus"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="assets/js/alert.js"></script>
+    <script src="assets/js/register.js"></script>
+    <link rel="icon" href="https://imgcache.qq.com/qzone/openapi/favicon.ico?t=20130219" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/regist.css">
+</head>
+<body>
+<div id="app">
+    <div class="nav">
+        <div class="nav-left">
+            <img src="https://imgcache.qq.com/qzone/openapi/favicon.ico?t=20130219" style="width: 25px;height: 25px">
+            <span>QQ</span>
+        </div>
+        <div class="nav-right">
+            <img src="assets/images/lianghao.png" style="width: 85px;height: 32px;margin-left: 40px">
+            <span>简体中文</span>
+            <span>意见反馈</span>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="main_header">
+            <span>欢迎注册QQ</span>
+            <span>每一天,乐再沟通</span>
+        </div>
+        <div class="main_input">
+            <input type="text" @blur="verifyRationalData" name="nickname" placeholder="昵称"
+                   :style="{borderColor: errorData.username_error.input_border_color,
+            backgroundColor: 'rgba(255, 255, 255, .6)'}">
+            <div class="tips" v-show="errorData.username_error.status">
+                <div>
+                    <img src="assets/icon/warn.png" class="warn">
+                </div>
+                <div class="warn_msg" id="username_warn">
+                    {{errorData.username_error.msg}}
+                </div>
+            </div>
+
+            <input type="password" @blur="verifyRationalData" name="password" placeholder="密码"
+                   :style="{borderColor: errorData.password_error.input_border_color,
+            backgroundColor: 'rgba(255, 255, 255, .6)'}">
+
+<!--            v-show="errorData.password_error.status"-->
+            <div class="tips" v-show="errorData.password_error.status">
+                <div>
+                    <img src="assets/icon/warn.png" class="warn">
+                </div>
+                <div class="warn_msg" id="password_warn">
+                    {{errorData.password_error.msg}}
+                </div>
+            </div>
+
+            <div class="mobile_phone open">
+                <div class="phone_left open" :style="{borderColor: errorData.phone_error.input_border_color,
+            backgroundColor: 'rgba(255, 255, 255, .6)'}">
+                    <label @click="visibleChange" @blur="visibleChange" class="open">
+                        <span class="open">{{phone_span_content}}</span>
+                        <img class="open" src="assets/icon/bottom_arrow.png"
+                             style="width: 9px;height: 9px;padding-left: 5px">
+                    </label>
+
+                </div>
+                <div class="phone_right">
+                    <input @blur="verifyRationalData" type="text" name="phone" placeholder="手机号码"
+                           :style="{borderColor: errorData.phone_error.input_border_color,
+            backgroundColor: 'rgba(255, 255, 255, .6)'}">
+                </div>
+
+                <div class="mobile_phone_select_content" v-show="phone_content_status">
+                    <div class="phone_item" @click="phoneNo">
+                        中国 +86
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        中国香港特别行政区 +852
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        中国澳门特别行政区 +853
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        中国台湾地区 +886
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        阿富汗 +93
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        阿根廷 +54
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        爱尔兰 +353
+                    </div>
+                    <div class="phone_item" @click="phoneNo">
+                        埃及 +20
+                    </div>
+                </div>
+            </div>
+<!--           v-show="errorData.phone_error.status" -->
+            <div class="tips" v-show="errorData.phone_error.status">
+                <div>
+                    <img src="assets/icon/warn.png" class="warn">
+                </div>
+                <div class="warn_msg" id="phone_warn">
+                    {{errorData.phone_error.msg}}
+                </div>
+            </div>
+            <div style="display: flex;margin-bottom: 13px" class="verify_code_content">
+                <div class="verify_code_left">
+                    <input type="text" maxlength="32" placeholder="短信验证码">
+                </div>
+                <div class="verify_code_right">
+                    发送验证码
+                </div>
+            </div>
+
+
+            <div style="display: flex">
+                <div style="width:18px;height:18px;margin-right: 10px">
+                    <span v-show="!agreementStatus && !flag">
+                       <input type="checkbox" class="Checkbox" id="check1" @click="changeAgreeStatus">
+                       <label for="check1"></label>
+                    </span>
+                    <img v-show="agreementStatus && !flag" @click="changeAgreeStatus"
+                         src="assets/icon/accept.png" style="width: 21px;height: 21px;position: relative;top: -2px;left: -2px">
+                </div>
+                <div style="font-size: 12px;line-height: 1.5">
+                    我已阅读并同意<a href="#">服务协议</a>和<a href="#">QQ隐私保护指引</a>
+                </div>
+            </div>
+
+                <button class="regist_button" @click="register">立即注册</button>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    Copyright ©1998-2023Tencent All Rights Reserved.
+</div>
+
+</body>
+<script>
+    const mountedApp = app.mount("#app");
+    app.use(ElementPlus);
+</script>
+</html>

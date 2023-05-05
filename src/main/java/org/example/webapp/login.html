@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ空间-分享生活，留住感动</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="assets/js/alert.js"></script>
+    <script src="assets/js/main.js"></script>
+<!--    <script src="assets/js/vue.global.prod.js"></script>-->
+    <link rel="stylesheet" href="assets/css/style.css">
+<!--    <link rel="icon" sizes="any" mask="" href="https://qzonestyle.gtimg.cn/qzone/v8/img/Qzone.svg">-->
+    <link rel="Shortcut Icon" href="//qzonestyle.gtimg.cn/aoi/img/logo/favicon.ico?max_age=31536000" type="image/x-icon">
+
+</head>
+<body>
+<div class="container" id="app">
+
+    <div class="zone-icon">
+        <img src="assets/images/login-icon.png">
+    </div>
+
+    <div class="login-box">
+        <div class="box-header">
+            <p>密码登录</p>
+            <p>推荐使用<a href="#">快捷登录</a>，防止盗号。</p>
+        </div>
+        <div class="box-content">
+            <input type="text" name="username" placeholder="支持QQ号/邮箱/手机号登录" @blur="verifyRationalData">
+            <input type="password" name="password" placeholder="请输入密码" @blur="verifyRationalData">
+            <br>
+
+        </div>
+        <div class="err_m" id="err_m">
+            <div v-show="errorStatus">
+                <img src="assets/icon/warn.png" style="width: 20px;height: 20px">
+                <span style="position:relative;top: -4px;font-size: 14px;color: red;padding-left: 10px">{{error}}</span>
+            </div>
+        </div>
+
+        <button type="button"
+                class="login_button"
+                style="margin-bottom: 15px"
+                @click="login">
+            登录
+        </button>
+
+        <div style="display: flex;justify-content: space-around;width: 320px;margin-left: 50px">
+            <div style="font-size: 12px;cursor: pointer">找回密码</div>
+            <div style="font-size: 12px;cursor: pointer">
+                <a href="regist.html" style="color: #000" target="_blank">注册账号</a>
+            </div>
+            <div style="font-size: 12px;cursor: pointer">意见反馈</div>
+        </div>
+    </div>
+
+    <div class="footer_content">
+        <div class="icon_foot_content">
+            <div class="icon_item">
+                <img src="assets/icon/iphone.png" style="width: 25px;height: 25px">
+                <span style="color: white;font-size: 12px">iPhone</span>
+            </div>
+            <div class="icon_item">
+                <img src="assets/icon/ipad.png" style="width: 25px;height: 25px">
+                <span style="color: white;font-size: 12px">iPad</span>
+            </div>
+            <div class="icon_item">
+                <img src="assets/icon/android.png" style="width: 25px;height: 25px">
+                <span style="color: white;font-size: 12px">Android</span>
+            </div>
+            <div class="icon_item">
+                <img src="assets/icon/windows.png" style="width: 25px;height: 25px">
+                <span style="color: white;font-size: 12px">Windows</span>
+            </div>
+            <div class="icon_item">
+                <img src="assets/icon/other_phone.png" style="width: 25px;height: 25px">
+                <span style="color: white;font-size: 12px">其他手机</span>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>
+                反馈建议 | 官方空间 | 空间活动 | 空间应用 | ABCmouse腾讯版 | 腾讯原创馆 | QQ互联 | QQ登录 | 社交组件 |
+                应用侵权投诉
+                | Complaint Guidelines
+            </p>
+            <p>
+                Copyright © 2005 - 2023 Tencent.All Rights Reserved.
+            </p>
+            <p>
+                腾讯公司 版权所有 粤网文[2014]0633-233号
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // const app = Vue.createApp({
+    //     data(){
+    //         return{
+    //             error:"asas"
+    //         }
+    //     }
+    // })
+    const mountedApp = app.mount("#app");
+</script>
+</html>
